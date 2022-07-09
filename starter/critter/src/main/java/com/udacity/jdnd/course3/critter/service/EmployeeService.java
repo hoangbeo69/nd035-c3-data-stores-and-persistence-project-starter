@@ -47,4 +47,11 @@ public class EmployeeService {
 
     return employees;
   }
+
+  public List<Employee> findEmployees(List<Long> employeeIds) {
+    if(null == employeeIds){
+      return null;
+    }
+    return employeeRepository.findAllByIdIsIn(employeeIds);
+  }
 }

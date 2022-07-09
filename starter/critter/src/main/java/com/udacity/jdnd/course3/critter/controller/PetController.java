@@ -33,8 +33,9 @@ public class PetController {
       return null;
     }
     Pet pet = petMapper.map(petDTO);
-    Pet JPAPet = petService.save(pet);
     Customer customer = customerService.getById(petDTO.getOwnerId());
+    pet.setCustomer(customer);
+    Pet JPAPet = petService.save(pet);
     customer.addPet(JPAPet);
     customerService.save(customer);
     return petMapper.map(JPAPet);

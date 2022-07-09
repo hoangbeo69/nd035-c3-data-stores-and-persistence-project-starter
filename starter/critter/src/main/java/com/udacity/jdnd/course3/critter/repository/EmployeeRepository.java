@@ -15,4 +15,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
   List<Employee> findByDaysAvailableContaining(DayOfWeek dayOfWeek);
 
   List<Employee> findBySkillsContaining(EmployeeSkill skill);
+
+  List<Employee> findAllByIdIsIn(List<Long> ids);
 }

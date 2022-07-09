@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface PetRepository extends JpaRepository<Pet, Long> {
 
   List<Pet> findPetByCustomerId(Long customerId);
+
+  List<Pet> findAllByIdIsIn(List<Long> ids);
 }

@@ -14,17 +14,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
  * @author smurF3r Created on 7/3/2022
  */
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Data
+@Entity
 public class Schedule {
 
   @Id @GeneratedValue(strategy = GenerationType.AUTO) private Long id;
@@ -35,5 +39,8 @@ public class Schedule {
 
   private LocalDate date;
 
-  @Column(name = "activities") @ElementCollection(fetch = FetchType.EAGER, targetClass = EmployeeSkill.class) @CollectionTable(name = "schedule_activity", joinColumns = @JoinColumn(name = "activity_id")) private Set<EmployeeSkill> skills;
+  @Column(name = "activities")
+  @ElementCollection(fetch = FetchType.EAGER, targetClass = EmployeeSkill.class)
+  @CollectionTable(name = "schedule_activity", joinColumns = @JoinColumn(name = "activity_id"))
+  private Set<EmployeeSkill> skills;
 }

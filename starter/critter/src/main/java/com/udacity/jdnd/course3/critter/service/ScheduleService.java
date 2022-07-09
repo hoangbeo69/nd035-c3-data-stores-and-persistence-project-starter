@@ -4,6 +4,7 @@ import com.udacity.jdnd.course3.critter.entities.Customer;
 import com.udacity.jdnd.course3.critter.entities.Employee;
 import com.udacity.jdnd.course3.critter.entities.Pet;
 import com.udacity.jdnd.course3.critter.entities.Schedule;
+import com.udacity.jdnd.course3.critter.exception.UserNotFoundException;
 import com.udacity.jdnd.course3.critter.repository.ScheduleRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class ScheduleService {
   }
 
   public Schedule save(Schedule schedule) {
-    return scheduleRepository.save(schedule);
+    Schedule scheduleSaved = scheduleRepository.save(schedule);
+    return scheduleRepository.getById(scheduleSaved.getId()).orElseThrow(() -> new UserNotFoundException());
   }
 
   public List<Schedule> getAllSchedules() {

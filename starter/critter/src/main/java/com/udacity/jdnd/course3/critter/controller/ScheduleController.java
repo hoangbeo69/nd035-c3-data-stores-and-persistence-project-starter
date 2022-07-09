@@ -1,5 +1,7 @@
 package com.udacity.jdnd.course3.critter.controller;
 
+import com.udacity.jdnd.course3.critter.entities.Employee;
+import com.udacity.jdnd.course3.critter.entities.Pet;
 import com.udacity.jdnd.course3.critter.entities.Schedule;
 import com.udacity.jdnd.course3.critter.mapper.ScheduleMapper;
 import com.udacity.jdnd.course3.critter.schedule.ScheduleDTO;
@@ -36,6 +38,10 @@ public class ScheduleController {
   @PostMapping
   public ScheduleDTO createSchedule(@RequestBody ScheduleDTO scheduleDTO) {
     Schedule schedule = scheduleMapper.map(scheduleDTO);
+    List<Employee> listEmployees = employeeService.findEmployees(scheduleDTO.getEmployeeIds());
+    List<Pet> listPets = petService.findPets(scheduleDTO.getPetIds());
+    schedule.setEmployeeList(listEmployees);
+    schedule.setPetList(listPets);
     Schedule JPASchedule = scheduleService.save(schedule);
     return scheduleMapper.map(JPASchedule);
   }
